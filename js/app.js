@@ -24,17 +24,18 @@ $(document).ready(function () {
             message: $('#message').val()
         }
         $.ajax({
-            url: "http://52.53.169.124:3000/contact/ccForm",
+            url: "http://54.67.34.66:3000/contact/ccForm",
             data: JSON.stringify(data),
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
+            beforeSend: function (xhr) {
+                $.blockUI({ message: '<h1><i class="fa fa-spinner fa-spin"></i></h1>' });
+            },
             success: function (result) {
+                $.unblockUI();
                 if (result.msg == 'success') {
                     alert('Thank you!! we will get in touch with you')
-                    $('#name').val("")
-                    $('#email').val("")
-                    $('#message').val("")
                 }
             }
         })
